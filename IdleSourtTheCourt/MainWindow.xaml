@@ -8,144 +8,124 @@
         MinHeight="650"
         Background="#1E1E1E">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="70"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="45"/>
-        </Grid.RowDefinitions>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="70"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="45"/>
+		</Grid.RowDefinitions>
 
-        <!-- TOP HUD -->
-        <Border Grid.Row="0"
+		<!-- TOP HUD -->
+		<Border Grid.Row="0"
                 Background="#292929"
                 BorderBrush="#444444"
                 BorderThickness="0,0,0,1">
 
-            <Grid Margin="20,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
+			<Grid Margin="20,0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
 
-                <StackPanel VerticalAlignment="Center">
-                    <TextBlock x:Name="KingdomNameText"
+				<StackPanel VerticalAlignment="Center">
+					<TextBlock x:Name="KingdomNameText"
                                Text="Kingdom"
                                FontSize="24"
                                FontWeight="Bold"
                                Foreground="White"/>
 
-                    <TextBlock x:Name="KingdomLevelText"
+					<TextBlock x:Name="KingdomLevelText"
                                Text="Hamlet"
                                FontSize="13"
                                Foreground="#AAAAAA"/>
-                </StackPanel>
+				</StackPanel>
 
-                <StackPanel Grid.Column="1"
-                            Margin="25,0"
+				<StackPanel Grid.Column="1"
+                            Margin="30,0"
                             VerticalAlignment="Center">
-                    <TextBlock Text="GOLD"
+					<TextBlock Text="GOLD"
                                FontSize="11"
                                Foreground="#AAAAAA"/>
-                    <TextBlock x:Name="GoldText"
+					<TextBlock x:Name="GoldText"
                                Text="0"
                                FontSize="22"
                                FontWeight="Bold"
                                Foreground="#F5C542"/>
-                </StackPanel>
+				</StackPanel>
 
-                <StackPanel Grid.Column="2"
-                            Margin="25,0"
+				<StackPanel Grid.Column="2"
+                            Margin="30,0"
                             VerticalAlignment="Center">
-                    <TextBlock Text="INCOME"
+					<TextBlock Text="INCOME"
                                FontSize="11"
                                Foreground="#AAAAAA"/>
-                    <TextBlock x:Name="IncomeText"
+					<TextBlock x:Name="IncomeText"
                                Text="+1 / sec"
                                FontSize="22"
                                FontWeight="Bold"
                                Foreground="#7DD87D"/>
-                </StackPanel>
+				</StackPanel>
 
-                <StackPanel Grid.Column="3"
-                            Margin="25,0"
+				<StackPanel Grid.Column="3"
+                            Margin="30,0"
                             VerticalAlignment="Center">
-                    <TextBlock Text="POPULATION"
+					<TextBlock Text="POPULATION"
                                FontSize="11"
                                Foreground="#AAAAAA"/>
-                    <TextBlock x:Name="PopulationText"
+					<TextBlock x:Name="PopulationText"
                                Text="0"
                                FontSize="22"
                                FontWeight="Bold"
                                Foreground="White"/>
-                </StackPanel>
-
-                <StackPanel Grid.Column="4"
-                            Margin="25,0"
-                            VerticalAlignment="Center">
-                    <TextBlock Text="HAPPINESS"
-                               FontSize="11"
-                               Foreground="#AAAAAA"/>
-                    <TextBlock x:Name="HappinessText"
-                               Text="50%"
-                               FontSize="22"
-                               FontWeight="Bold"
-                               Foreground="#FFD166"/>
-                </StackPanel>
-            </Grid>
-        </Border>
+				</StackPanel>
+			</Grid>
+		</Border>
 
 
-        <!-- MAIN CONTENT -->
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="340"/>
-            </Grid.ColumnDefinitions>
+		<!-- MAIN CONTENT -->
+		<Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="340"/>
+			</Grid.ColumnDefinitions>
 
 
-            <!-- KINGDOM / VISITOR -->
-            <Grid Grid.Column="0">
+			<!-- KINGDOM / VISITOR -->
+			<Grid Grid.Column="0">
 
-                <Border x:Name="KingdomBackground"
+				<!-- BACKGROUND -->
+				<Border x:Name="KingdomBackground"
                         Margin="15"
                         CornerRadius="10"
                         Background="#303B2F">
 
-                    <Grid>
+					<Grid>
 
-                        <!-- Kingdom info -->
-                        <StackPanel HorizontalAlignment="Center"
+						<!-- Kingdom information -->
+						<StackPanel HorizontalAlignment="Center"
                                     VerticalAlignment="Top"
-                                    Margin="0,25,0,0">
+                                    Margin="0,30,0,0">
 
-                            <TextBlock x:Name="PopulationProgressText"
+							<TextBlock x:Name="PopulationProgressText"
                                        Text="0 / 25 population"
                                        HorizontalAlignment="Center"
                                        FontSize="16"
                                        Foreground="White"/>
 
-                            <ProgressBar x:Name="PopulationProgress"
+							<ProgressBar x:Name="PopulationProgress"
                                          Width="350"
                                          Height="12"
                                          Margin="0,8"
                                          Minimum="0"
                                          Maximum="25"
                                          Value="0"/>
-
-                            <TextBlock x:Name="HappinessInfoText"
-                                       Text="Happiness: 50% • Slow population growth"
-                                       HorizontalAlignment="Center"
-                                       FontSize="13"
-                                       Foreground="#DDDDDD"
-                                       Margin="0,4,0,0"/>
-                        </StackPanel>
+						</StackPanel>
 
 
-                        <!-- VISITOR -->
-                        <Border x:Name="VisitorPanel"
+						<!-- VISITOR -->
+						<Border x:Name="VisitorPanel"
                                 Width="430"
                                 Padding="25"
                                 Background="#EFE9D5"
@@ -153,16 +133,16 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center">
 
-                            <StackPanel>
+							<StackPanel>
 
-                                <TextBlock x:Name="VisitorNameText"
+								<TextBlock x:Name="VisitorNameText"
                                            Text="A Farmer"
                                            FontSize="24"
                                            FontWeight="Bold"
                                            Foreground="#222222"
                                            HorizontalAlignment="Center"/>
 
-                                <TextBlock x:Name="VisitorRequestText"
+								<TextBlock x:Name="VisitorRequestText"
                                            Text="May we build a new farm?"
                                            FontSize="17"
                                            TextWrapping="Wrap"
@@ -170,13 +150,13 @@
                                            Foreground="#333333"
                                            Margin="0,15,0,25"/>
 
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="*"/>
+									</Grid.ColumnDefinitions>
 
-                                    <Button x:Name="YesButton"
+									<Button x:Name="YesButton"
                                             Grid.Column="0"
                                             Content="YES"
                                             Height="55"
@@ -185,7 +165,7 @@
                                             FontWeight="Bold"
                                             Click="YesButton_Click"/>
 
-                                    <Button x:Name="NoButton"
+									<Button x:Name="NoButton"
                                             Grid.Column="1"
                                             Content="NO"
                                             Height="55"
@@ -193,25 +173,25 @@
                                             FontSize="20"
                                             FontWeight="Bold"
                                             Click="NoButton_Click"/>
-                                </Grid>
+								</Grid>
 
-                            </StackPanel>
-                        </Border>
+							</StackPanel>
+						</Border>
 
 
-                        <!-- WAIT TIMER -->
-                        <StackPanel x:Name="WaitingPanel"
+						<!-- WAIT TIMER -->
+						<StackPanel x:Name="WaitingPanel"
                                     Visibility="Collapsed"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center">
 
-                            <TextBlock Text="The kingdom rests..."
+							<TextBlock Text="The kingdom rests..."
                                        FontSize="25"
                                        FontWeight="Bold"
                                        Foreground="White"
                                        HorizontalAlignment="Center"/>
 
-                            <TextBlock x:Name="TimerText"
+							<TextBlock x:Name="TimerText"
                                        Text="01:00"
                                        FontSize="40"
                                        FontWeight="Bold"
@@ -219,166 +199,160 @@
                                        HorizontalAlignment="Center"
                                        Margin="0,10"/>
 
-                            <TextBlock Text="The next visitor will arrive soon."
+							<TextBlock Text="The next visitor will arrive soon."
                                        FontSize="14"
                                        Foreground="#CCCCCC"
                                        HorizontalAlignment="Center"/>
+						</StackPanel>
 
-                            <TextBlock Text="Your kingdom continues growing while you wait."
-                                       FontSize="13"
-                                       Foreground="#AAAAAA"
-                                       HorizontalAlignment="Center"
-                                       Margin="0,6,0,0"/>
-                        </StackPanel>
-
-                    </Grid>
-                </Border>
-            </Grid>
+					</Grid>
+				</Border>
+			</Grid>
 
 
-            <!-- SHOP -->
-            <Border Grid.Column="1"
+			<!-- SHOP -->
+			<Border Grid.Column="1"
                     Background="#292929"
                     Margin="0,15,15,15"
                     CornerRadius="10">
 
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
+				<ScrollViewer VerticalScrollBarVisibility="Auto">
 
-                    <StackPanel Margin="15">
+					<StackPanel Margin="15">
 
-                        <TextBlock Text="KINGDOM UPGRADES"
+						<TextBlock Text="KINGDOM UPGRADES"
                                    FontSize="20"
                                    FontWeight="Bold"
                                    Foreground="White"
                                    Margin="0,5,0,15"/>
 
 
-                        <!-- FARM -->
-                        <Border Background="#353535"
+						<!-- FARM -->
+						<Border Background="#353535"
                                 CornerRadius="8"
                                 Padding="12"
                                 Margin="0,0,0,10">
 
-                            <StackPanel>
+							<StackPanel>
 
-                                <TextBlock Text="Farm"
+								<TextBlock Text="Farm"
                                            FontSize="18"
                                            FontWeight="Bold"
                                            Foreground="White"/>
 
-                                <TextBlock Text="+1 gold / second"
+								<TextBlock Text="+1 gold / second"
                                            Foreground="#7DD87D"
                                            Margin="0,5"/>
 
-                                <TextBlock x:Name="FarmRequirementText"
+								<TextBlock x:Name="FarmRequirementText"
                                            Text="Requires 10 population"
                                            Foreground="#AAAAAA"/>
 
-                                <TextBlock x:Name="FarmPriceText"
+								<TextBlock x:Name="FarmPriceText"
                                            Text="50 gold"
                                            Foreground="#F5C542"
                                            Margin="0,5"/>
 
-                                <Button x:Name="FarmButton"
+								<Button x:Name="FarmButton"
                                         Content="BUY FARM"
                                         Height="35"
                                         Click="FarmButton_Click"/>
-                            </StackPanel>
-                        </Border>
+							</StackPanel>
+						</Border>
 
 
-                        <!-- MARKET -->
-                        <Border Background="#353535"
+						<!-- MARKET -->
+						<Border Background="#353535"
                                 CornerRadius="8"
                                 Padding="12"
                                 Margin="0,0,0,10">
 
-                            <StackPanel>
+							<StackPanel>
 
-                                <TextBlock Text="Market"
+								<TextBlock Text="Market"
                                            FontSize="18"
                                            FontWeight="Bold"
                                            Foreground="White"/>
 
-                                <TextBlock Text="+5 gold / second"
+								<TextBlock Text="+5 gold / second"
                                            Foreground="#7DD87D"
                                            Margin="0,5"/>
 
-                                <TextBlock Text="Requires 25 population"
+								<TextBlock Text="Requires 25 population"
                                            Foreground="#AAAAAA"/>
 
-                                <TextBlock x:Name="MarketPriceText"
+								<TextBlock x:Name="MarketPriceText"
                                            Text="500 gold"
                                            Foreground="#F5C542"
                                            Margin="0,5"/>
 
-                                <Button x:Name="MarketButton"
+								<Button x:Name="MarketButton"
                                         Content="BUY MARKET"
                                         Height="35"
                                         Click="MarketButton_Click"/>
-                            </StackPanel>
-                        </Border>
+							</StackPanel>
+						</Border>
 
 
-                        <!-- MINE -->
-                        <Border Background="#353535"
+						<!-- MINE -->
+						<Border Background="#353535"
                                 CornerRadius="8"
                                 Padding="12"
                                 Margin="0,0,0,10">
 
-                            <StackPanel>
+							<StackPanel>
 
-                                <TextBlock Text="Mine"
+								<TextBlock Text="Mine"
                                            FontSize="18"
                                            FontWeight="Bold"
                                            Foreground="White"/>
 
-                                <TextBlock Text="+15 gold / second"
+								<TextBlock Text="+15 gold / second"
                                            Foreground="#7DD87D"
                                            Margin="0,5"/>
 
-                                <TextBlock Text="Requires 75 population"
+								<TextBlock Text="Requires 75 population"
                                            Foreground="#AAAAAA"/>
 
-                                <TextBlock x:Name="MinePriceText"
+								<TextBlock x:Name="MinePriceText"
                                            Text="5,000 gold"
                                            Foreground="#F5C542"
                                            Margin="0,5"/>
 
-                                <Button x:Name="MineButton"
+								<Button x:Name="MineButton"
                                         Content="BUY MINE"
                                         Height="35"
                                         Click="MineButton_Click"/>
-                            </StackPanel>
-                        </Border>
+							</StackPanel>
+						</Border>
 
 
-                        <!-- SAVE -->
-                        <Button Content="SAVE GAME"
+						<!-- SAVE -->
+						<Button Content="SAVE GAME"
                                 Height="40"
                                 Margin="0,15,0,0"
                                 Click="SaveButton_Click"/>
 
-                    </StackPanel>
+					</StackPanel>
 
-                </ScrollViewer>
-            </Border>
+				</ScrollViewer>
+			</Border>
 
-        </Grid>
+		</Grid>
 
 
-        <!-- BOTTOM -->
-        <Border Grid.Row="2"
+		<!-- BOTTOM -->
+		<Border Grid.Row="2"
                 Background="#292929">
 
-            <TextBlock x:Name="StatusText"
+			<TextBlock x:Name="StatusText"
                        Text="Welcome, Your Majesty."
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        Foreground="#AAAAAA"/>
 
-        </Border>
+		</Border>
 
-    </Grid>
+	</Grid>
 
 </Window>
