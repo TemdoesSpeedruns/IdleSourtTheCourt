@@ -27,18 +27,15 @@ namespace SourtTheCourtIdle
 
             game = LoadGame();
 
-            // Main idle income timer
             gameTimer = new DispatcherTimer();
             gameTimer.Interval = TimeSpan.FromMilliseconds(100);
             gameTimer.Tick += GameTimer_Tick;
             gameTimer.Start();
 
-            // Visitor timer
             visitorTimer = new DispatcherTimer();
             visitorTimer.Interval = TimeSpan.FromSeconds(1);
             visitorTimer.Tick += VisitorTimer_Tick;
 
-            // Population growth timer
             populationTimer = new DispatcherTimer();
             populationTimer.Interval = TimeSpan.FromSeconds(10);
             populationTimer.Tick += PopulationTimer_Tick;
@@ -104,13 +101,13 @@ namespace SourtTheCourtIdle
                 return 3;
 
             if (game.Happiness >= 60)
-                return 2;
+                return 0;
 
             if (game.Happiness >= 40)
-                return 1;
+                return -2;
 
             if (game.Happiness >= 20)
-                return 0;
+                return -10;
 
             return -1;
         }
