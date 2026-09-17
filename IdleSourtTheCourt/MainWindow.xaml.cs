@@ -70,6 +70,11 @@ namespace SourtTheCourtIdle
         {
             int populationChange = GetPopulationGrowth();
 
+            if (populationChange < 0 && game.Happiness >= 50)
+            {
+                populationChange = 0;
+            }
+
             if (populationChange != 0)
             {
                 game.Population += populationChange;
@@ -104,15 +109,18 @@ namespace SourtTheCourtIdle
                 return 2;
 
             if (game.Happiness >= 60)
+                return 1;
+
+            if (game.Happiness >= 50)
                 return 0;
 
             if (game.Happiness >= 40)
-                return -2;
+                return -1;
 
             if (game.Happiness >= 20)
-                return -10;
+                return -5;
 
-            return -1;
+            return -10;
         }
 
 
@@ -143,7 +151,6 @@ namespace SourtTheCourtIdle
             VisitorPanel.Visibility = Visibility.Collapsed;
             WaitingPanel.Visibility = Visibility.Visible;
 
-            // Random time between 15 and 30 seconds
             visitorTimeRemaining = random.Next(15, 31);
 
             UpdateTimer();
@@ -329,6 +336,19 @@ namespace SourtTheCourtIdle
                     NoGold = 0,
                     NoPopulation = 0,
                     NoHappiness = -3
+                },
+
+                new Visitor
+                {
+                    Name = "Some Settlers",
+                    Request = "We heard your kingdom is growing. Can we join?",
+                    YesGold = 0,
+                    YesPopulation = 5,
+                    YesHappiness = 5,
+
+                    NoGold = 0,
+                    NoPopulation = 0,
+                    NoHappiness = -5
                 }
             };
 
@@ -413,12 +433,13 @@ namespace SourtTheCourtIdle
         private string BuildDecisionResultText(
             double gold,
             int population,
-            int happiness)
+            int happiness
+        )
         {
             string result = "Decision result:";
 
             if (gold > 0)
-                result += $" +{FormatNumber(gold)} gold"));
+                result += $" +{FormatNumber(gold)} gold";
 
             if (gold < 0)
                 result += $" -{FormatNumber(Math.Abs(gold))} gold";
@@ -581,74 +602,42 @@ namespace SourtTheCourtIdle
 
         private void ChangeBackground()
         {
-            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            string imgDir = Path.Combine(baseDir, "img");
-
-            string level = (game.KingdomLevel ?? "Hamlet").ToLowerInvariant();
-            string imageName = level + ".png";
-            string imagePath = Path.Combine(imgDir, imageName);
-
             try
             {
+                string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+                string imgDir = Path.Combine(baseDir, "img");
+
+                string level = (game.KingdomLevel ?? "Hamlet").ToLowerInvariant();
+                string imageName = level + ".png";
+                string imagePath = Path.Combine(imgDir, imageName);
+
                 if (File.Exists(imagePath))
                 {
-                    BitmapImage image = new BitmapImage();
-
+                    var image = new BitmapImage();
                     image.BeginInit();
                     image.UriSource = new Uri(imagePath, UriKind.Absolute);
                     image.CacheOption = BitmapCacheOption.OnLoad;
                     image.EndInit();
                     image.Freeze();
 
-                    KingdomBackground.Background = new ImageBrush(image)
-                    {
-                        Stretch = Stretch.UniformToFill
-                    };
-
+                    KingdomBackground.Background = new ImageBrush(image) { Stretch = Stretch.UniformToFill };
                     return;
-                }
-                else
-                {
-                    StatusText.Text = $"Background not found: {imagePath}";
                 }
             }
             catch (Exception ex)
             {
-                StatusText.Text = $"Background error: {ex.Message}";
+                System.Diagnostics.Debug.WriteLine($"[ChangeBackground] Exception: {ex}");
             }
 
-            // Fallback to solid colours if image not available
+            // Fallback solid colour
             switch (game.KingdomLevel)
             {
-                case "Hamlet":
-                    KingdomBackground.Background =
-                        new SolidColorBrush(Color.FromRgb(48, 59, 47));
-                    break;
-
-                case "Village":
-                    KingdomBackground.Background =
-                        new SolidColorBrush(Color.FromRgb(45, 70, 50));
-                    break;
-
-                case "Town":
-                    KingdomBackground.Background =
-                        new SolidColorBrush(Color.FromRgb(65, 65, 85));
-                    break;
-
-                case "City":
-                    KingdomBackground.Background =
-                        new SolidColorBrush(Color.FromRgb(70, 55, 80));
-                    break;
-
-                case "Kingdom":
-                    KingdomBackground.Background =
-                        new SolidColorBrush(Color.FromRgb(80, 65, 40));
-                    break;
-
-                default:
-                    KingdomBackground.Background =
-                        new SolidColorBrush(Color.FromRgb(48, 59, 47));
-                    break;
+                case "Hamlet": KingdomBackground.Background = new SolidColorBrush(Color.FromRgb(48, 59, 47)); break;
+                case "Village": KingdomBackground.Background = new SolidColorBrush(Color.FromRgb(45, 70, 50)); break;
+                case "Town": KingdomBackground.Background = new SolidColorBrush(Color.FromRgb(65, 65, 85)); break;
+                case "City": KingdomBackground.Background = new SolidColorBrush(Color.FromRgb(70, 55, 80)); break;
+                case "Kingdom": KingdomBackground.Background = new SolidColorBrush(Color.FromRgb(80, 65, 40)); break;
+                default: KingdomBackground.Background = new SolidColorBrush(Color.FromRgb(48, 59, 47)); break;
             }
         }
 
@@ -670,8 +659,8 @@ namespace SourtTheCourtIdle
             HappinessText.Text =
                 $"{game.Happiness}%";
 
-            HappinessInfoText.Text =
-                GetHappinessDescription();
+            RebirthText.Text =
+                game.RebirthCount.ToString();
 
             KingdomNameText.Text = "Kingdom";
             KingdomLevelText.Text = game.KingdomLevel;
@@ -680,27 +669,6 @@ namespace SourtTheCourtIdle
             UpdateUpgradeButtons();
 
             ChangeBackground();
-        }
-
-
-        private string GetHappinessDescription()
-        {
-            if (game.Happiness >= 90)
-                return $"Happiness: {game.Happiness}% • Population grows very quickly";
-
-            if (game.Happiness >= 75)
-                return $"Happiness: {game.Happiness}% • Population grows quickly";
-
-            if (game.Happiness >= 60)
-                return $"Happiness: {game.Happiness}% • Population grows steadily";
-
-            if (game.Happiness >= 40)
-                return $"Happiness: {game.Happiness}% • Population grows slowly";
-
-            if (game.Happiness >= 20)
-                return $"Happiness: {game.Happiness}% • Population is stagnant";
-
-            return $"Happiness: {game.Happiness}% • People are leaving";
         }
 
 
@@ -845,13 +813,11 @@ namespace SourtTheCourtIdle
                 if (loadedGame == null)
                     return CreateNewGame();
 
-                // Compatibility with older saves
                 if (loadedGame.Happiness == 0)
                 {
                     loadedGame.Happiness = 50;
                 }
 
-                // Offline gold progress
                 TimeSpan offlineTime =
                     DateTime.Now - loadedGame.LastSave;
 
@@ -902,6 +868,8 @@ namespace SourtTheCourtIdle
 
                 Mines = 0,
 
+                RebirthCount = 0,
+
                 LastSave = DateTime.Now
             };
         }
@@ -912,6 +880,36 @@ namespace SourtTheCourtIdle
             SaveGame();
 
             base.OnClosed(e);
+        }
+
+        private void RebirthButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (game.Population < 1500)
+            {
+                StatusText.Text = "You need at least 1500 population to rebirth.";
+                return;
+            }
+
+            if (MessageBox.Show(
+                "Are you sure you want to reset your progress? This cannot be undone.",
+                "Confirm Rebirth",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                int rebirthCount = game.RebirthCount + 1;
+                
+                game = CreateNewGame();
+                game.RebirthCount = rebirthCount;
+                
+                game.IncomePerSecond += rebirthCount * 0.5;
+                
+                if (File.Exists(SaveFile))
+                    File.Delete(SaveFile);
+                
+                StatusText.Text = $"Your kingdom has been reborn. (Rebirth #{rebirthCount})";
+                UpdateUI();
+                AutoSave();
+            }
         }
     }
 
@@ -938,6 +936,8 @@ namespace SourtTheCourtIdle
         public int Markets { get; set; }
 
         public int Mines { get; set; }
+
+        public int RebirthCount { get; set; }
 
         public DateTime LastSave { get; set; }
     }

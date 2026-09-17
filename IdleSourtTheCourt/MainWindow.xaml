@@ -27,6 +27,8 @@
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="Auto"/>
 				</Grid.ColumnDefinitions>
 
 				<StackPanel VerticalAlignment="Center">
@@ -47,7 +49,7 @@
                             VerticalAlignment="Center">
 					<TextBlock Text="GOLD"
                                FontSize="11"
-                               Foreground="#AAAAAA"/>
+                               Foreground="White"/>
 					<TextBlock x:Name="GoldText"
                                Text="0"
                                FontSize="22"
@@ -60,7 +62,7 @@
                             VerticalAlignment="Center">
 					<TextBlock Text="INCOME"
                                FontSize="11"
-                               Foreground="#AAAAAA"/>
+                               Foreground="White"/>
 					<TextBlock x:Name="IncomeText"
                                Text="+1 / sec"
                                FontSize="22"
@@ -73,8 +75,34 @@
                             VerticalAlignment="Center">
 					<TextBlock Text="POPULATION"
                                FontSize="11"
-                               Foreground="#AAAAAA"/>
+                               Foreground="White"/>
 					<TextBlock x:Name="PopulationText"
+                               Text="0"
+                               FontSize="22"
+                               FontWeight="Bold"
+                               Foreground="White"/>
+				</StackPanel>
+
+				<StackPanel Grid.Column="4"
+                            Margin="30,0"
+                            VerticalAlignment="Center">
+					<TextBlock Text="HAPPINESS"
+                               FontSize="11"
+                               Foreground="White"/>
+					<TextBlock x:Name="HappinessText"
+                               Text="50%"
+                               FontSize="22"
+                               FontWeight="Bold"
+                               Foreground="White"/>
+				</StackPanel>
+
+				<StackPanel Grid.Column="5"
+                            Margin="30,0"
+                            VerticalAlignment="Center">
+					<TextBlock Text="REBIRTHS"
+                               FontSize="11"
+                               Foreground="White"/>
+					<TextBlock x:Name="RebirthText"
                                Text="0"
                                FontSize="22"
                                FontWeight="Bold"
@@ -112,7 +140,8 @@
                                        Text="0 / 25 population"
                                        HorizontalAlignment="Center"
                                        FontSize="16"
-                                       Foreground="White"/>
+                                       FontWeight="Bold"
+                                       Foreground="Black"/>
 
 							<ProgressBar x:Name="PopulationProgress"
                                          Width="350"
@@ -188,20 +217,20 @@
 							<TextBlock Text="The kingdom rests..."
                                        FontSize="25"
                                        FontWeight="Bold"
-                                       Foreground="White"
+                                       Foreground="Black"
                                        HorizontalAlignment="Center"/>
 
 							<TextBlock x:Name="TimerText"
                                        Text="01:00"
                                        FontSize="40"
                                        FontWeight="Bold"
-                                       Foreground="White"
+                                       Foreground="Black"
                                        HorizontalAlignment="Center"
                                        Margin="0,10"/>
 
 							<TextBlock Text="The next visitor will arrive soon."
                                        FontSize="14"
-                                       Foreground="#CCCCCC"
+                                       Foreground="Black"
                                        HorizontalAlignment="Center"/>
 						</StackPanel>
 
@@ -333,6 +362,13 @@
                                 Margin="0,15,0,0"
                                 Click="SaveButton_Click"/>
 
+						<!-- REBIRTH -->
+						<Button Content="REBIRTH (RESET)"
+                                Height="40"
+                                Margin="0,10,0,0"
+                                Background="#8B0000"
+                                Foreground="White"
+                                Click="RebirthButton_Click"/>
 					</StackPanel>
 
 				</ScrollViewer>
