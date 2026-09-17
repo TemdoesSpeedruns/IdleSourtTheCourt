@@ -3,6 +3,9 @@ using System.IO;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Threading;
+using System.Collections.Generic;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace SourtTheCourtIdle
 {
@@ -95,10 +98,10 @@ namespace SourtTheCourtIdle
         private int GetPopulationGrowth()
         {
             if (game.Happiness >= 90)
-                return 4;
+                return 3;
 
             if (game.Happiness >= 75)
-                return 3;
+                return 2;
 
             if (game.Happiness >= 60)
                 return 0;
@@ -415,7 +418,7 @@ namespace SourtTheCourtIdle
             string result = "Decision result:";
 
             if (gold > 0)
-                result += $" +{FormatNumber(gold)} gold";
+                result += $" +{FormatNumber(gold)} gold"));
 
             if (gold < 0)
                 result += $" -{FormatNumber(Math.Abs(gold))} gold";
@@ -545,19 +548,19 @@ namespace SourtTheCourtIdle
         {
             string oldLevel = game.KingdomLevel;
 
-            if (game.Population >= 500)
+            if (game.Population >= 1000)
             {
                 game.KingdomLevel = "Kingdom";
             }
-            else if (game.Population >= 200)
+            else if (game.Population >= 400)
             {
                 game.KingdomLevel = "City";
             }
-            else if (game.Population >= 75)
+            else if (game.Population >= 100)
             {
                 game.KingdomLevel = "Town";
             }
-            else if (game.Population >= 25)
+            else if (game.Population >= 50)
             {
                 game.KingdomLevel = "Village";
             }
@@ -578,36 +581,73 @@ namespace SourtTheCourtIdle
 
         private void ChangeBackground()
         {
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            string imgDir = Path.Combine(baseDir, "img");
+
+            string level = (game.KingdomLevel ?? "Hamlet").ToLowerInvariant();
+            string imageName = level + ".png";
+            string imagePath = Path.Combine(imgDir, imageName);
+
+            try
+            {
+                if (File.Exists(imagePath))
+                {
+                    BitmapImage image = new BitmapImage();
+
+                    image.BeginInit();
+                    image.UriSource = new Uri(imagePath, UriKind.Absolute);
+                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    image.EndInit();
+                    image.Freeze();
+
+                    KingdomBackground.Background = new ImageBrush(image)
+                    {
+                        Stretch = Stretch.UniformToFill
+                    };
+
+                    return;
+                }
+                else
+                {
+                    StatusText.Text = $"Background not found: {imagePath}";
+                }
+            }
+            catch (Exception ex)
+            {
+                StatusText.Text = $"Background error: {ex.Message}";
+            }
+
+            // Fallback to solid colours if image not available
             switch (game.KingdomLevel)
             {
                 case "Hamlet":
                     KingdomBackground.Background =
-                        new System.Windows.Media.SolidColorBrush(
-                            System.Windows.Media.Color.FromRgb(48, 59, 47));
+                        new SolidColorBrush(Color.FromRgb(48, 59, 47));
                     break;
 
                 case "Village":
                     KingdomBackground.Background =
-                        new System.Windows.Media.SolidColorBrush(
-                            System.Windows.Media.Color.FromRgb(45, 70, 50));
+                        new SolidColorBrush(Color.FromRgb(45, 70, 50));
                     break;
 
                 case "Town":
                     KingdomBackground.Background =
-                        new System.Windows.Media.SolidColorBrush(
-                            System.Windows.Media.Color.FromRgb(65, 65, 85));
+                        new SolidColorBrush(Color.FromRgb(65, 65, 85));
                     break;
 
                 case "City":
                     KingdomBackground.Background =
-                        new System.Windows.Media.SolidColorBrush(
-                            System.Windows.Media.Color.FromRgb(70, 55, 80));
+                        new SolidColorBrush(Color.FromRgb(70, 55, 80));
                     break;
 
                 case "Kingdom":
                     KingdomBackground.Background =
-                        new System.Windows.Media.SolidColorBrush(
-                            System.Windows.Media.Color.FromRgb(80, 65, 40));
+                        new SolidColorBrush(Color.FromRgb(80, 65, 40));
+                    break;
+
+                default:
+                    KingdomBackground.Background =
+                        new SolidColorBrush(Color.FromRgb(48, 59, 47));
                     break;
             }
         }
@@ -682,17 +722,17 @@ namespace SourtTheCourtIdle
 
         private int GetNextPopulationRequirement()
         {
-            if (game.Population < 25)
-                return 25;
-
-            if (game.Population < 75)
-                return 75;
+            if (game.Population < 50)
+                return 50;
 
             if (game.Population < 200)
                 return 200;
 
-            if (game.Population < 500)
-                return 500;
+            if (game.Population < 450)
+                return 450;
+
+            if (game.Population < 1000)
+                return 1000;
 
             return 1000;
         }
