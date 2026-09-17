@@ -340,6 +340,52 @@ namespace SourtTheCourtIdle
 
                 new Visitor
                 {
+                    Name = "A Thief",
+                    Request = "I can sneak into noble estates and bring you some coin. Shall I steal for your crown?",
+                    YesGold = 200,
+                    YesPopulation = 0,
+                    YesHappiness = -8,
+                    NoGold = 0,
+                    NoPopulation = 0,
+                    NoHappiness = 3
+                },
+
+                new Visitor
+                {
+                    Name = "A Devil",
+                    Request = "I offer great riches in exchange for... sacrifices. Take my deal?",
+                    YesGold = 1000,
+                    YesPopulation = -30,
+                    YesHappiness = -30,
+                    NoGold = 0,
+                    NoPopulation = 0,
+                    NoHappiness = 5
+                },
+
+                new Visitor
+                {
+                    Name = "A Cat",
+                    Request = "A cat demands a belly rub. Will you indulge this royal feline?",
+                    YesGold = 0,
+                    YesPopulation = 0,
+                    YesHappiness = 1,
+                    NoGold = 0,
+                    NoPopulation = 0,
+                    NoHappiness = -1
+                },
+                new Visitor {
+                    Name = "A Knight",
+                    Request = "I wish to join your court and protect you with my life, would you allow me to?",
+                    YesGold = -100,
+                    YesPopulation = 1,
+                    YesHappiness = 1,
+                    NoGold = 0,
+                    NoPopulation = 0,
+                    NoHappiness = -2
+                },
+
+                new Visitor
+                {
                     Name = "Some Settlers",
                     Request = "We heard your kingdom is growing. Can we join?",
                     YesGold = 0,
