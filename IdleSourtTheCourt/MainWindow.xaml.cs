@@ -4,6 +4,7 @@ using System.Text.Json;
 using System.Windows;
 using System.Windows.Threading;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -398,7 +399,18 @@ namespace SourtTheCourtIdle
                 }
             };
 
-            return visitors[random.Next(visitors.Length)];
+            List<Visitor> pool = visitors.ToList();
+
+            if (game.Gold < 100)
+            {
+                pool = pool.Where(v => !(v.YesGold < 0 || v.NoGold < 0)).ToList();
+            }
+
+            
+            if (pool.Count == 0)
+                pool = visitors.ToList();
+
+            return pool[random.Next(pool.Count)];
         }
 
 
