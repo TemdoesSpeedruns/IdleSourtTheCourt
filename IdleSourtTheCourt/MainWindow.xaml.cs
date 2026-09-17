@@ -356,8 +356,8 @@ namespace SourtTheCourtIdle
                     Name = "A Devil",
                     Request = "I offer great riches in exchange for... sacrifices. Take my deal?",
                     YesGold = 1000,
-                    YesPopulation = -30,
-                    YesHappiness = -30,
+                    YesPopulation = -50,
+                    YesHappiness = -50,
                     NoGold = 0,
                     NoPopulation = 0,
                     NoHappiness = 5
